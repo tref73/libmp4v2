@@ -157,6 +157,15 @@ MP4TrackId MP4AddALawAudioTrack(
     uint32_t timeScale);
 
 MP4V2_EXPORT
+MP4TrackId MP4AddALACAudioTrack(
+	MP4FileHandle hFile,
+	uint32_t      timeScale,
+	uint8_t       *magicCookie,
+	uint32_t      magicCookieLength,
+	uint16_t      sampleSize,
+	uint16_t numChannels);
+
+MP4V2_EXPORT
 MP4TrackId MP4AddAC3AudioTrack(
     MP4FileHandle hFile,
     uint32_t      samplingRate,

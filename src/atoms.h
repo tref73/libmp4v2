@@ -240,6 +240,16 @@ private:
     MP4Ac3Atom &operator= ( const MP4Ac3Atom &src );
 };
 
+class MP4ALACAtom : public MP4Atom {
+public:
+	MP4ALACAtom(MP4File &file);
+	void Generate();
+private:
+	MP4ALACAtom();
+	MP4ALACAtom( const MP4ALACAtom &src );
+	MP4ALACAtom &operator= ( const MP4ALACAtom &src );
+};
+
 class MP4DAc3Atom : public MP4Atom {
 public:
     MP4DAc3Atom(MP4File &file);

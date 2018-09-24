@@ -253,6 +253,13 @@ public:
     MP4TrackId AddALawAudioTrack(
         uint32_t timeScale);
 
+	MP4TrackId AddALACAudioTrack(
+		uint32_t timeScale,
+		uint8_t * magicCookie,
+		uint32_t magicCookieLength,
+		uint16_t sampleSize,
+		uint16_t numChannels);
+
     MP4TrackId AddAC3AudioTrack(
         uint32_t samplingRate,
         uint8_t fscod,

@@ -1365,6 +1365,52 @@ MP4TrackId MP4File::AddALawAudioTrack(    uint32_t timeScale)
     return trackId;
 }
 
+MP4TrackId MP4File::AddALACAudioTrack(
+	uint32_t timeScale, 
+	uint8_t * magicCookie,
+	uint32_t magicCookieLength,
+	uint16_t sampleSize,
+	uint16_t numChannels)
+{
+	SetTimeScale(timeScale);
+	MP4TrackId trackId = AddTrack(MP4_AUDIO_TRACK_TYPE, timeScale);
+
+	AddTrackToOd(trackId);
+
+    SetTrackFloatProperty(trackId, "tkhd.volume", 1.0);
+
+    (void)InsertChildAtom(MakeTrackName(trackId, "mdia.minf"), "smhd", 0);
+
+    (void)AddChildAtom(MakeTrackName(trackId, "mdia.minf.stbl.stsd"), "alac");
+
+	MP4Atom *atom = FindTrackAtom(trackId, "mdia.minf.stbl.stsd.alac");
+
+	MP4Integer32Property* pStsdCountProperty;
+    FindIntegerProperty(
+        MakeTrackName(trackId, "mdia.minf.stbl.stsd.entryCount"),
+        (MP4Property**)&pStsdCountProperty);
+    pStsdCountProperty->IncrementValue();
+
+	MP4Integer32Property* pALACTimeScaleProperty;
+	MP4Integer16Property* pALACSampleSizeProperty;
+	MP4Integer16Property* pALACChannelsProperty;
+	atom->FindProperty("alac.timeScale", (MP4Property**)&pALACTimeScaleProperty);
+	atom->FindProperty("alac.sampleSize", (MP4Property**)&pALACSampleSizeProperty);
+	atom->FindProperty("alac.channels", (MP4Property**)&pALACChannelsProperty);
+
+	pALACTimeScaleProperty->SetValue(timeScale<<16);
+	pALACSampleSizeProperty->SetValue(sampleSize);
+	pALACChannelsProperty->SetValue(numChannels);
+
+	MP4ALACAtom *alacAtom = new MP4ALACAtom(*this);
+	MP4BytesProperty *cookie;
+	alacAtom->FindProperty("alac.decoderConfig", (MP4Property**)&cookie);
+	cookie->SetValue(magicCookie, magicCookieLength, 0);
+	atom->AddChildAtom(alacAtom);
+
+	return trackId;
+}
+
 MP4TrackId MP4File::AddAudioTrack(
     uint32_t timeScale,
     MP4Duration sampleDuration,
