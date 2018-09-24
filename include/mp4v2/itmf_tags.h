@@ -157,6 +157,9 @@ typedef struct MP4Tags_s
     const uint32_t* genreID;
     const uint32_t* composerID;
     const char*     xid;
+
+    const char*     originalSampleRate;
+    const char*     mqaEncoder;
 } MP4Tags;
 
 /** Allocate tags convenience structure for reading and settings tags.
@@ -283,6 +286,8 @@ MP4V2_EXPORT bool MP4TagsSetPlaylistID        ( const MP4Tags*, const uint64_t* 
 MP4V2_EXPORT bool MP4TagsSetGenreID           ( const MP4Tags*, const uint32_t* );
 MP4V2_EXPORT bool MP4TagsSetComposerID        ( const MP4Tags*, const uint32_t* );
 MP4V2_EXPORT bool MP4TagsSetXID               ( const MP4Tags*, const char* );
+MP4V2_EXPORT bool MP4TagsSetOriginalSampleRate( const MP4Tags*, const char* );
+MP4V2_EXPORT bool MP4TagsSetMQAEncoder        ( const MP4Tags*, const char* );
 
 /** @} ***********************************************************************/
 

@@ -90,6 +90,9 @@ public:
     static const string CODE_COMPOSERID;
     static const string CODE_XID;
 
+    static const string CODE_ORIGINALSAMPLERATE;
+    static const string CODE_MQAENCODER;
+
 public:
     string      name;
     string      artist;
@@ -148,6 +151,9 @@ public:
     uint32_t genreID;
     uint32_t composerID;
     string   xid;
+
+    string   originalSampleRate;
+    string   mqaEncoder;
 
     bool     hasMetadata;
 

@@ -198,6 +198,8 @@ MP4StandardAtom::MP4StandardAtom (MP4File &file, const char *type) : MP4Atom(fil
         ExpectChildAtom("geID", Optional, OnlyOne); /* Genre ID */
         ExpectChildAtom("cmID", Optional, OnlyOne); /* Composer ID */
         ExpectChildAtom("xid ", Optional, OnlyOne); /* XID */
+        ExpectChildAtom("orfs", Optional, OnlyOne); /* Original Sample Rate */
+        ExpectChildAtom("\251mqa", Optional, OnlyOne); /* MQA encoder details */
 
     }  else if (ATOMID(type) == ATOMID("imif")) {
         AddVersionAndFlags();

@@ -142,6 +142,9 @@ Tags::c_fetch( MP4Tags*& tags, MP4FileHandle hFile )
     fetchInteger( cim, CODE_COMPOSERID,        composerID,        c.composerID );
     fetchString(  cim, CODE_XID,               xid,               c.xid );
 
+    fetchString(  cim, CODE_ORIGINALSAMPLERATE,originalSampleRate,c.originalSampleRate );
+    fetchString(  cim, CODE_MQAENCODER,        mqaEncoder,        c.mqaEncoder);
+
     genericItemListFree( itemList ); // free
 
     // fetch full list and overwrite our copy, otherwise clear
@@ -397,6 +400,9 @@ Tags::c_store( MP4Tags*& tags, MP4FileHandle hFile )
     storeInteger( file, CODE_GENREID,           genreID,           c.genreID );
     storeInteger( file, CODE_COMPOSERID,        composerID,        c.composerID );
     storeString(  file, CODE_XID,               xid,               c.xid );
+
+    storeString(  file, CODE_ORIGINALSAMPLERATE,originalSampleRate,c.originalSampleRate );
+    storeString(  file, CODE_MQAENCODER,        mqaEncoder,        c.mqaEncoder );
 
     // destroy all cover-art then add each
     {
@@ -891,6 +897,9 @@ const string Tags::CODE_PLAYLISTID        = "plID";
 const string Tags::CODE_GENREID           = "geID";
 const string Tags::CODE_COMPOSERID        = "cmID";
 const string Tags::CODE_XID               = "xid ";
+
+const string Tags::CODE_ORIGINALSAMPLERATE = "orfs";
+const string Tags::CODE_MQAENCODER = "\xa9" "mqa";
 
 ///////////////////////////////////////////////////////////////////////////////
 

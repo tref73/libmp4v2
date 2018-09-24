@@ -1394,6 +1394,54 @@ MP4TagsSetXID( const MP4Tags* m, const char* value )
     return false;
 }
 
+bool
+MP4TagsSetOriginalSampleRate( const MP4Tags* m, const char* value )
+{
+    if( !m || !m->__handle )
+        return false;
+
+    itmf::Tags& cpp = *static_cast<itmf::Tags*>(m->__handle);
+    MP4Tags& c = *const_cast<MP4Tags*>(m);
+    
+    try {
+        cpp.c_setString( value, cpp.originalSampleRate, c.originalSampleRate );
+        return true;
+    }
+    catch( Exception* x ) {
+        mp4v2::impl::log.errorf(*x);
+        delete x;
+    }
+    catch( ... ) {
+        mp4v2::impl::log.errorf("%s: failed",__FUNCTION__);
+    }
+
+    return false;
+}
+
+bool
+MP4TagsSetMQAEncoder( const MP4Tags* m, const char* value )
+{
+    if( !m || !m->__handle )
+        return false;
+
+    itmf::Tags& cpp = *static_cast<itmf::Tags*>(m->__handle);
+    MP4Tags& c = *const_cast<MP4Tags*>(m);
+    
+    try {
+        cpp.c_setString( value, cpp.mqaEncoder, c.mqaEncoder );
+        return true;
+    }
+    catch( Exception* x ) {
+        mp4v2::impl::log.errorf(*x);
+        delete x;
+    }
+    catch( ... ) {
+        mp4v2::impl::log.errorf("%s: failed",__FUNCTION__);
+    }
+
+    return false;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 MP4ItmfItem*
