@@ -50,6 +50,8 @@ using namespace mp4v2::util;
 #define OPT_CATEGORY     'O'
 #define OPT_PLAYLISTID   'p'
 #define OPT_PICTURE      'P'
+#define OPT_MQATOOL      'q'
+#define OPT_MQAORFS      'Q'
 #define OPT_PODCAST      'B'
 #define OPT_ALBUM_ARTIST 'R'
 #define OPT_NAME         's'
@@ -63,7 +65,7 @@ using namespace mp4v2::util;
 #define OPT_ARTISTID     'z'
 #define OPT_COMPOSERID   'Z'
 
-#define OPT_STRING  "r:A:a:b:c:C:d:D:e:E:g:G:H:i:I:j:l:L:m:M:n:N:o:O:p:P:B:R:s:S:t:T:x:X:w:y:z:Z:"
+#define OPT_STRING  "r:A:a:b:c:C:d:D:e:E:g:G:H:i:I:j:l:L:m:M:n:N:o:O:p:P:q:Q:B:R:s:S:t:T:x:X:w:y:z:Z:"
 
 #define ELEMENT_OF(x,i) x[int(i)]
 
@@ -98,6 +100,8 @@ static const char* const help_text =
 	"  -O, -category    STR  Set the category\n"
     "  -p, -playlistid  NUM  Set the playlist ID\n"
     "  -P, -picture     PTH  Set the picture as a .png\n"
+    "  -q, -mqatool     MQA  Set the mqa encoder tag\n"
+    "  -Q, -mqaorfs     OFS  Set the original sample rate\n"
     "  -B, -podcast     NUM  Set the podcast flag.\n"
     "  -R, -albumartist STR  Set the album artist\n"
     "  -s, -song        STR  Set the song title\n"
@@ -142,6 +146,8 @@ extern "C" int
         { "episodeid",   prog::Option::REQUIRED_ARG, 0, OPT_TVEPISODEID  },
         { "playlistid",  prog::Option::REQUIRED_ARG, 0, OPT_PLAYLISTID   },
         { "picture",     prog::Option::REQUIRED_ARG, 0, OPT_PICTURE      },
+        { "mqatool",     prog::Option::REQUIRED_ARG, 0, OPT_MQATOOL      },
+        { "mqaorfs",     prog::Option::REQUIRED_ARG, 0, OPT_MQAORFS      },
         { "podcast",     prog::Option::REQUIRED_ARG, 0, OPT_PODCAST      },
         { "song",        prog::Option::REQUIRED_ARG, 0, OPT_NAME         },
         { "show",        prog::Option::REQUIRED_ARG, 0, OPT_TVSHOW       },
@@ -381,6 +387,12 @@ extern "C" int
                     case OPT_RATING:
                         MP4TagsSetContentRating(mdata, NULL);
                         break;
+                    case OPT_MQATOOL:
+                        MP4TagsSetMQAEncoder( mdata, NULL );
+                        break;
+                    case OPT_MQAORFS:
+                        MP4TagsSetOriginalSampleRate( mdata, NULL );
+                        break;
                 }
             }
         }
@@ -587,6 +599,13 @@ extern "C" int
                         MP4TagsSetContentRating(mdata, &rating);
                         break;
                     }
+                    case OPT_MQATOOL:
+                        MP4TagsSetMQAEncoder( mdata, tags[i] );
+                        break;
+                    case OPT_MQAORFS:
+                        MP4TagsSetOriginalSampleRate( mdata, tags[i] );
+                        break;
+
                 }
             }
         }
