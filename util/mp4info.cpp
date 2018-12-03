@@ -240,6 +240,12 @@ extern "C" int main( int argc, char** argv )
                 string s = itmf::enumCountryCode.toString( static_cast<itmf::CountryCode>( *tags->iTunesCountry ), true );
                 fprintf( stdout, " iTunes Store Country: %s\n", s.c_str() );
             }
+            if ( tags->mqaEncoder ) {
+                fprintf( stdout, " MQA Encoder Tag: %s\n", tags->mqaEncoder );
+            }
+            if ( tags->originalSampleRate ) {
+                fprintf( stdout, " MQA Original Sample Rate: %s\n", tags->originalSampleRate );
+            }
             MP4TagsFree( tags );
             MP4Close( mp4file );
         }
